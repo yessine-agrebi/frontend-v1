@@ -6,8 +6,9 @@ import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import Calendar from "@/components/Calendar";
+import { Tutor } from "@/types";
 const Tutors = () => {
-  const [tutors, setTutors] = useState([]);
+  const [tutors, setTutors] = useState<Tutor[]>();
 
   const headers = {
     "Content-Type": "application/json",
@@ -21,7 +22,7 @@ const Tutors = () => {
   };
 
   useEffect(() => {
-    if (tutors.length === 0) {
+    if (tutors?.length === 0) {
       fetchTutors();
     }
   }, []);
@@ -29,7 +30,7 @@ const Tutors = () => {
   return (
     <div className="flex flex-row w-full gap-5">
     <div className="flex flex-col gap-5 mt-10">
-      {tutors.map((tutor) => (
+      {tutors?.map((tutor) => (
         <div className="bg-white shadow-md rounded-lg overflow-hidden md:w-full md:max-w-3xl md:mx-24 flex justify-between border-2 border-black ">
           <div className="flex-shrink-0 p-4">
             <Image src={profileImg} alt="TutorZone" width={150} height={50} />
