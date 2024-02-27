@@ -12,8 +12,8 @@ const Tutors = () => {
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5ZXNzaW5lLmFnQGdtYWlsLmNvbSIsImlhdCI6MTcwNzQwMjM1MiwiZXhwIjoxNzA3NDg4NzUyfQ.0nw_MiJ1LX0Xpr-WsUIcbpTkwmAbtmRdPtpAySt3gVI",
+    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5ZXNzaW5lLmFnQGdtYWlsLmNvbSIsImlhdCI6MTcwNzQwMjM1MiwiZXhwIjoxNzA3NDg4NzUyfQ.0nw_MiJ1LX0Xpr-WsUIcbpTkwmAbtmRdPtpAySt3gVI",
+
   };
   const fetchTutors = async () => {
     const response = await Api.get("/tutors", { headers: headers });
