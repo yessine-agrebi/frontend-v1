@@ -8,28 +8,22 @@ import { FaRegHeart } from "react-icons/fa6";
 import Calendar from "@/components/Calendar";
 import { Tutor } from "@/types";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTutors } from "@/services/tutorsService";
 const Tutors = () => {
-  const [tutors, setTutors] = useState<Tutor[]>();
+  const {data, error} = useQuery({
+    queryKey: ["tutors"],
+    queryFn: fetchTutors,
+  })
+  
 
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllc3NpbmUzQGdtYWlsLmNvbSIsInN1YiI6NCwiaWF0IjoxNzA5MTk0NTM0LCJleHAiOjE3MDk3OTkzMzR9.5QFIU2GC_emXZVfsA44vr3xDoRR0c4FAlcT_SJ_YejM",
-  };
-  const fetchTutors = async () => {
-    const response = await Api.get("/tutors", { headers: headers });
-    const data = await response.data;
-    console.log(data);
-    setTutors(data);
-  };
-
-  useEffect(() => {
-    fetchTutors();
-  }, []);
-
-  return (
+  if (error) {
+    return <h2>{error.message}</h2>;
+  }
+  if(data)
+    return (
     <div className="container mx-auto md:flex flex-row w-full mt-5">
-      {tutors?.map((tutor) => (
+      {data?.map((tutor: Tutor) => (
         <div
           key={tutor.userId}
           className="bg-white shadow-md rounded-lg overflow-hidden md:max-w-xl md:mx-2 flex flex-col justify-between border-2 border-black "
@@ -49,12 +43,12 @@ const Tutors = () => {
               </div>
               <div className="flex gap-2 items-center font-semibold">
                 <Link 
-                className="bg-yellow-300 md:w-[100px] text-black py-3 rounded-xl text-sm  hover:bg-yellow-200 border-2 border-black text-center"
+                className="bg-yellow-300 md:w-[120px] text-black py-3 rounded-xl text-sm  hover:bg-yellow-200 border-2 border-black text-center"
                 href={`/tutors/${tutor.userId}`}
                 >
                   Book Lesson
                 </Link>
-                <button className="md:w-[100px] text-black py-3 rounded-xl text-sm hover:bg-gray-200 border-2 border-gray-300">
+                <button className="md:w-[120px] text-black py-3 rounded-xl text-sm hover:bg-gray-200 border-2 border-gray-300">
                   Send Message
                 </button>
               </div>
