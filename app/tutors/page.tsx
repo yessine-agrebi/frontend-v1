@@ -12,39 +12,34 @@ const Tutors = () => {
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5ZXNzaW5lLmFnQGdtYWlsLmNvbSIsImlhdCI6MTcwNzQwMjM1MiwiZXhwIjoxNzA3NDg4NzUyfQ.0nw_MiJ1LX0Xpr-WsUIcbpTkwmAbtmRdPtpAySt3gVI",
-
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllc3NpbmUzQGdtYWlsLmNvbSIsInN1YiI6NCwiaWF0IjoxNzA5MTk0NTM0LCJleHAiOjE3MDk3OTkzMzR9.5QFIU2GC_emXZVfsA44vr3xDoRR0c4FAlcT_SJ_YejM",
   };
   const fetchTutors = async () => {
     const response = await Api.get("/tutors", { headers: headers });
     const data = await response.data;
+    console.log(data)
     setTutors(data);
   };
 
   useEffect(() => {
-    if (tutors?.length === 0) {
-      fetchTutors();
-    }
-  }, []);
+        fetchTutors();
+  },[]);
 
   return (
     <div className="flex flex-row w-full gap-5">
     <div className="flex flex-col gap-5 mt-10">
       {tutors?.map((tutor) => (
-        <div className="bg-white shadow-md rounded-lg overflow-hidden md:w-full md:max-w-3xl md:mx-24 flex justify-between border-2 border-black ">
+        <div key={tutor.userId} className="bg-white shadow-md rounded-lg overflow-hidden md:w-full md:max-w-3xl md:mx-24 flex justify-between border-2 border-black ">
           <div className="flex-shrink-0 p-4">
             <Image src={profileImg} alt="TutorZone" width={150} height={50} />
           </div>
-
-          {/* Middle Column */}
           <div className="p-4">
             <h2 className="text-xl font-semibold">{`${tutor.firstName} ${tutor.lastName}`}</h2>
-            <p className="text-gray-600">Speciality: Software Engineering</p>
+            <p className="text-gray-600">Speciality: {tutor.speciality?.name}</p>
             <p className="text-gray-600">Country: {tutor.country}</p>
             <p className="text-gray-600">Experience: 5 years</p>
           </div>
 
-          {/* Right Column */}
           <div className="p-4 flex flex-col">
             <div className="flex items-center gap-5 mb-2">
               <h1 className="flex items-center justify-center text-lg md:text-2xl font-extrabold">

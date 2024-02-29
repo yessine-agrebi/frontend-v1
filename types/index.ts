@@ -6,7 +6,7 @@ export type Tutor = {
   password: string;
   phone?: string;
   role: Role;
-  specialityId: number;
+  speciality: Speciality;
   availabilities: Availability[];
   description: string;
   experience: number;
@@ -28,4 +28,9 @@ export type Availability = {
   day: string;
   startTime: string;
   endTime: string;
+};
+
+export type Speciality = {
+  specialityId: number;
+  name: string;
 };
