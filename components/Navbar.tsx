@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./ModeToggle";
 import { Menu } from "lucide-react";
-import { DropdownMenu, DropdownMenuShortcut } from "./ui/dropdown-menu";
+import { DropdownMenu} from "./ui/dropdown-menu";
 import {
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -14,7 +14,6 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 
 const Navbar = () => {
-  const [isMobile, setIsMobile] = useState(false);
 
   return (
     <nav className="flex py-4 justify-between md:shadow-sm">
