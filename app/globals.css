@@ -54,8 +54,11 @@
 @layer base {
   * {
     @apply border-border;
+    
   }
   body {
     @apply bg-background text-foreground;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 }
