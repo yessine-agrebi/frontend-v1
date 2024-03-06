@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./ModeToggle";
 import { Menu } from "lucide-react";
-import { DropdownMenu} from "./ui/dropdown-menu";
+import { DropdownMenu } from "./ui/dropdown-menu";
 import {
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -12,24 +12,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
 
 const Navbar = () => {
-
   return (
     <nav className="flex py-4 justify-between md:shadow-sm">
       <div className="flex items-center gap-4">
         <h1 className="font-extrabold text-2xl">9arrini</h1>
 
         <ul className="md:flex hidden items-start justify-center gap-3 ">
-          <li>Find Tutors</li>
+          <li>
+            <Link href="tutors">Find Tutors</Link>
+          </li>
           <li>Become a Tutor</li>
         </ul>
       </div>
       <div className="md:flex hidden items-center gap-4">
         <ModeToggle />
-        <Button>Login</Button>
+        <Button className="">Login</Button>
       </div>
-      <div className="md:hidden">
+      <div className="md:hidden flex items-center justify-center gap-3">
+      <ModeToggle  />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button size="icon">
