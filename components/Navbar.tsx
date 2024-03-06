@@ -18,7 +18,9 @@ const Navbar = () => {
   return (
     <nav className="flex py-4 justify-between md:shadow-sm">
       <div className="flex items-center gap-4">
-        <h1 className="font-extrabold text-2xl">9arrini</h1>
+        <h1 className="font-extrabold text-2xl">
+          <Link href="/">9arrini</Link>
+        </h1>
 
         <ul className="md:flex hidden items-start justify-center gap-3 ">
           <li>
@@ -32,7 +34,7 @@ const Navbar = () => {
         <Button className="">Login</Button>
       </div>
       <div className="md:hidden flex items-center justify-center gap-3">
-      <ModeToggle  />
+        <ModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button size="icon">
