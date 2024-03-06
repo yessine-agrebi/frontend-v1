@@ -24,9 +24,11 @@ const Navbar = () => {
 
         <ul className="md:flex hidden items-start justify-center gap-3 ">
           <li>
-            <Link href="tutors">Find Tutors</Link>
+            <Link href="/tutors">Find Tutors</Link>
           </li>
-          <li>Become a Tutor</li>
+          <li>
+            <Link href="/auth/signup/tutor">Become a Tutor</Link>
+          </li>
         </ul>
       </div>
       <div className="md:flex hidden items-center gap-4">

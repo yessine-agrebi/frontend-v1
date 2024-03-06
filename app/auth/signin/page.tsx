@@ -23,11 +23,11 @@ const SignIn = () => {
         <CardHeader className="flex flex-col gap-4">
           <CardTitle>Sign In</CardTitle>
           <CardDescription>
-            <Link className="underline" href="/signup">
+            <Link className="underline" href="/auth/signup">
               Sign up as a Student
             </Link>{" "}
             or{" "}
-            <Link className="underline" href="/signup">
+            <Link className="underline" href="/auth/signup/tutor">
               Signup as a Tutor
             </Link>
           </CardDescription>

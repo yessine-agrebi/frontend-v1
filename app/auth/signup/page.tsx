@@ -35,7 +35,7 @@ const SignUp = () => {
 
   return (
     <div className="flex items-center justify-center mt-5">
-      <Card className="md:w-1/4 w-full">
+      <Card className="md:w-1/3 w-full">
         <CardHeader className="flex flex-col gap-4">
           <CardTitle>Sign Up</CardTitle>
           <CardDescription className="flex items-center gap-3">

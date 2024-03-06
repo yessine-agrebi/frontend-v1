@@ -11,7 +11,7 @@ export default function isAuth(Component: any) {
 
     useEffect(() => {
       if (!auth) {
-        return redirect("/");
+        return redirect("/auth/signin");
       }
     }, []);
 
