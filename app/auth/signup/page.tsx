@@ -22,7 +22,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: any) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -40,7 +40,7 @@ const SignUp = () => {
           <CardTitle>Sign Up</CardTitle>
           <CardDescription className="flex items-center gap-3">
             Already have an account?
-            <Link className="underline" href="/signup">
+            <Link className="underline" href="/auth/signin">
               Sign In
             </Link>
           </CardDescription>

@@ -8,4 +8,4 @@ const Tutors = () => {
   )
 }
 
-export default isAuth(Tutors)
+export default Tutors
