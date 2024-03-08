@@ -1,7 +1,6 @@
 import Api from "@/API/Api";
-import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
-import CredentialsProvider  from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 export default NextAuth({
   providers: [
     CredentialsProvider({
@@ -11,7 +10,6 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any, req: any) {
-        console.log(credentials)
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -24,26 +22,21 @@ export default NextAuth({
         return user;
       },
     }),
-    
   ],
   callbacks: {
-    async jwt({token, user}) {
-      console.log({ token, user})
+    async jwt({ token, user }) {
+      console.log({ token, user });
       if (user) return { ...token, ...user };
 
       return token;
     },
-    async session({token, session}) {
+    async session({ token, session }) {
       session.user = token.user;
       session.backendTokens = token.backendTokens;
-
       return session;
-
     },
   },
   pages: {
     signIn: "/auth/signin",
   },
 });
-
-

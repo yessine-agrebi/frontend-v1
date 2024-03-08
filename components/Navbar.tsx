@@ -36,7 +36,9 @@ const Navbar = () => {
       <div className="md:flex hidden items-center gap-4">
         <ModeToggle />
         {session && session.user ? (
-          <Button className="" onClick={() => signOut()}>Sign Out</Button>
+          <Button className="" onClick={() => signOut()}>
+            Sign Out
+          </Button>
         ) : (
           <Button className="" onClick={() => signIn()}>
             Sign In
@@ -54,7 +56,9 @@ const Navbar = () => {
           <DropdownMenuContent className="w-50 mx-3 flex-col items-center justify-center">
             <DropdownMenuLabel>
               {session?.user ? (
-                <Button className="" onClick={() => signOut()}>Sign Out</Button>
+                <Button className="" onClick={() => signOut()}>
+                  Sign Out
+                </Button>
               ) : (
                 <Button className="" onClick={() => signIn()}>
                   Sign In

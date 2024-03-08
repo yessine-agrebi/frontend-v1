@@ -1,22 +1,22 @@
 "use client";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
-import { isAuthenticated } from "@/utils/auth";
+import { useSession } from "next-auth/react";
 
 
 export default function isAuth(Component: any) {
   return function IsAuth(props: any) {
-    const auth = isAuthenticated;
+    const {data: session} = useSession()
 
 
     useEffect(() => {
-      if (!auth) {
+      if (session && !session?.user && !session?.backendTokens) {
         return redirect("/auth/signin");
       }
     }, []);
 
 
-    if (!auth) {
+    if (session && !session?.user && !session?.backendTokens) {
       return null;
     }
 

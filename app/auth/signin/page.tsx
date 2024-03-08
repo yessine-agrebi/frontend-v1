@@ -21,18 +21,19 @@ const SignIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name, e.target.value);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const result = await signIn("credentials", {
       email: user.email,
       password: user.password,
       redirect: true,
       callbackUrl: "/tutors",
     });
+    setLoading(false);
   };
   return (
     <div className="flex items-center justify-center mt-5">
