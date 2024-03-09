@@ -28,7 +28,6 @@ const Tutors = () => {
             Authorization: `Bearer ${session?.backendTokens.accessToken}`,
           },
         });
-        console.log(data);
         return data;
       } else {
         return { message: "Not authenticated" };
@@ -52,7 +51,6 @@ const Tutors = () => {
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center justify-start gap-2">
-                  {/* <Image src={profileImage} width={35} height={35} alt='profile' className='rounded-full' /> */}
                   <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>YA</AvatarFallback>
