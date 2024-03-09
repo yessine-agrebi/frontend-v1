@@ -10,26 +10,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { SignInFormInputs } from "@/types";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { SiFacebook } from "react-icons/si";
+
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({ email: "", password: "" });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  const data  = useRef<SignInFormInputs>({ email: "", password: "" });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     const result = await signIn("credentials", {
-      email: user.email,
-      password: user.password,
+      email: data.current.email,
+      password: data.current.password,
       redirect: true,
       callbackUrl: "/tutors",
     });
@@ -66,14 +64,18 @@ const SignIn = () => {
         <CardContent>
           <form className="flex flex-col gap-4" onSubmit={onSubmit}>
             <Label htmlFor="email">Email</Label>
-            <Input type="email" placeholder="Email" name="email" value={user.email} onChange={handleChange} />
+            <Input
+              type="email"
+              placeholder="Email"
+              name="email"
+              onChange={(e) => (data.current.email = e.target.value)}
+            />
             <Label htmlFor="password">Password</Label>
             <Input
               type="password"
               name="password"
-              value={user.password}
               placeholder="Password"
-              onChange={handleChange}
+              onChange={(e) => (data.current.password = e.target.value)}
             />
             <Button type="submit">
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

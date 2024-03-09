@@ -34,3 +34,8 @@ export type Speciality = {
   specialityId: number;
   name: string;
 };
+
+export type SignInFormInputs = {
+  email: string;
+  password: string;
+};

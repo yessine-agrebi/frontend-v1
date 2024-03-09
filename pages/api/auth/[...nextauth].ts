@@ -2,6 +2,7 @@ import Api from "@/API/Api";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 export default NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -25,7 +26,6 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log({ token, user });
       if (user) return { ...token, ...user };
 
       return token;

@@ -8,11 +8,13 @@ export default function isAuth(Component: any) {
   return function IsAuth(props: any) {
     const {data: session} = useSession()
 
-
     useEffect(() => {
-      if (session && !session?.user && !session?.backendTokens) {
-        return redirect("/auth/signin");
-      }
+      setTimeout(() => {
+        if (!session?.user) {
+          redirect("/auth/signin");
+        }
+      }, 500);
+      
     }, []);
 
 
