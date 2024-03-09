@@ -39,3 +39,10 @@ export type SignInFormInputs = {
   email: string;
   password: string;
 };
+
+export type SignUpFormInputs = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};

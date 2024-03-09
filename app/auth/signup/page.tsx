@@ -1,4 +1,5 @@
 "use client";
+import Api from "@/API/Api";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,27 +11,41 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { SignUpFormInputs } from "@/types";
 import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import React, { ChangeEvent, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { SiFacebook } from "react-icons/si";
 const SignUp = () => {
-  const [user, setUser] = useState({
+  const user = useRef<SignUpFormInputs>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-  });
+  })
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: any) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
+  
   const onSignUp = async (e: any) => {
     e.preventDefault();
-    console.log(user);
+    setLoading(true);
+    Api.post("/auth/signup", user.current)
+    .then(async (res) => {
+      console.log(res);
+      const result = await signIn("credentials", {
+        email: user.current.email,
+        password: user.current.password,
+        redirect: true,
+        callbackUrl: "/tutors",
+      });
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.log(err);
+      setLoading(false);
+    });
   };
 
   return (
@@ -64,48 +79,36 @@ const SignUp = () => {
             <Input
               type="text"
               name="firstName"
-              value={user.firstName}
               placeholder="First Name"
               required
-              onChange={handleChange}
+              onChange={(e) => (user.current.firstName = e.target.value)}
             />
             <Label htmlFor="lestName">Last Name</Label>
             <Input
               type="text"
               name="lastName"
-              value={user.lastName}
               placeholder="Last Name"
               required
-              onChange={handleChange}
+              onChange={(e) => (user.current.lastName = e.target.value)}
             />
             <Label htmlFor="email">Email</Label>
             <Input
               type="email"
               name="email"
-              value={user.email}
               placeholder="Email"
               required
-              onChange={handleChange}
+              onChange={(e) => (user.current.email = e.target.value)}
             />
             <Label htmlFor="password">Password</Label>
             <Input
               type="password"
               name="password"
-              value={user.password}
               placeholder="Password"
               required
-              onChange={handleChange}
+              onChange={(e) => (user.current.password = e.target.value)}
             />
             <Button
               type="submit"
-              disabled={
-                user.firstName.length > 0 &&
-                user.lastName &&
-                user.email.length > 0 &&
-                user.password.length > 0
-                  ? false
-                  : true
-              }
               onClick={onSignUp}
             >
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
