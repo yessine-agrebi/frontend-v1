@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 
 const Provider = ({ children }: { children: ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
+
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>

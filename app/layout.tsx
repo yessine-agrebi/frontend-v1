@@ -7,9 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "TutorZone",
+  title: "9arrini",
   description:
-    "TutorZone is a platform for students to find tutors and for tutors to find students.",
+    "9arrini is a platform for students to find tutors and teachers for various subjects and skills.",
 };
 
 export default function RootLayout({
