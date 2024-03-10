@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Heart, MessageSquareText } from "lucide-react";
+import { Heart, Link, MessageSquareText } from "lucide-react";
 import { FaStar } from "react-icons/fa6";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -94,7 +94,9 @@ const Tutors = () => {
                 <Button>
                   <MessageSquareText />
                 </Button>
-                <Button>Schedule</Button>
+                <Link href={`/tutors/${tutor.userId}`}>
+                <Button>View Details</Button>
+                </Link>
               </div>
             </CardFooter>
           </Card>
