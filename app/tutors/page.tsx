@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import Api from "@/API/Api";
 import { Tutor } from "@/types";
+import Head from "next/head";
 const Tutors = () => {
   const { data: session, status } = useSession();
 
@@ -37,6 +38,10 @@ const Tutors = () => {
   });
   return (
     <div className="mt-4">
+      <Head>
+        <title>Tutors</title>
+        <meta property="og:title" content="My page title" key="title" />
+      </Head>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error...</p>}
       <h1 className="font-bold text-lg">
