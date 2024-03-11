@@ -5,8 +5,12 @@ import React from 'react'
 
 const Tutor = () => {
     const tutorId = useParams()
+    console.log(tutorId)
   return (
-    <div>Tutor</div>
+    <div>
+      <h1>Tutor</h1>
+      <p>tutorId: {tutorId}</p>
+    </div>
   )
 }
 
