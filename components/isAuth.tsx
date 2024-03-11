@@ -15,7 +15,7 @@ export default function isAuth(Component: any) {
         }
       }, 500);
       
-    }, []);
+    }, [session?.user]);
 
 
     if (session && !session?.user && !session?.backendTokens) {
