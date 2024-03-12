@@ -17,9 +17,10 @@ import { useQuery } from "@tanstack/react-query";
 import Api from "@/API/Api";
 import { Tutor } from "@/types";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 const Tutors = () => {
+  const router = useRouter();
   const { data: session, status } = useSession();
-
   const { data, isLoading, isError } = useQuery({
     queryKey: ["tutors"],
     queryFn: async () => {
@@ -84,8 +85,14 @@ const Tutors = () => {
             </CardHeader>
             <CardContent>
               <div className="">
-                <p><span className="font-semibold">Speciality:</span> {tutor.speciality.name}</p>
-                <p><span className="font-semibold">Experience:</span> {tutor.experience} Years</p>
+                <p>
+                  <span className="font-semibold">Speciality:</span>{" "}
+                  {tutor.speciality.name}
+                </p>
+                <p>
+                  <span className="font-semibold">Experience:</span>{" "}
+                  {tutor.experience} Years
+                </p>
                 <p>{tutor.description}</p>
               </div>
             </CardContent>
@@ -94,9 +101,10 @@ const Tutors = () => {
                 <Button>
                   <MessageSquareText />
                 </Button>
-                <Link href={`/tutors/${tutor.userId}`}>
-                <Button>View Details</Button>
-                </Link>
+
+                <Button onClick={() => router.push(`/tutors/${tutor.userId}`)}>
+                  View Details
+                </Button>
               </div>
             </CardFooter>
           </Card>
