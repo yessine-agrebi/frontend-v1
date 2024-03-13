@@ -28,6 +28,8 @@ export type Availability = {
   day: string;
   startTime: string;
   endTime: string;
+  startDate: string;
+  endDate: string;
 };
 
 export type Speciality = {
