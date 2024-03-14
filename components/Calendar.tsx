@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Availability } from "@/types";
+import React, { useState } from 'react';
+import { Availability } from '@/types';
 
 const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
   console.log(availabilities);
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -44,8 +44,8 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
     while (currentTime <= end) {
       timeSlots.push(
         currentTime.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
+          hour: '2-digit',
+          minute: '2-digit',
         })
       );
       currentTime.setMinutes(currentTime.getMinutes() + 30);
@@ -55,22 +55,22 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-between mb-4">
+    <div className='container mx-auto'>
+      <div className='mb-4 flex justify-between'>
         <button onClick={goToPreviousWeek}>Previous</button>
         <button onClick={goToNextWeek}>Next</button>
       </div>
-      <div className="grid grid-cols-7 border-b-2 border-yellow-300">
+      <div className='grid grid-cols-7 border-b-2 border-yellow-300'>
         {daysOfWeek.map((day, index) => (
-          <div key={index} className="p-2 text-center text-gray-400">
+          <div key={index} className='p-2 text-center text-gray-400'>
             {day}
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-2">
+      <div className='grid grid-cols-7 gap-2'>
         {daysOfMonth.map((day, index) => (
-          <div key={index} className="p-2 text-center">
-            <div className="text-gray-400">{day.getDate()}</div>
+          <div key={index} className='p-2 text-center'>
+            <div className='text-gray-400'>{day.getDate()}</div>
             {availabilitiesThisWeek.map((availability, i) => {
               const timeSlots = generateTimeSlots(
                 availability.startTime,
@@ -80,7 +80,7 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
               return (
                 <React.Fragment key={i}>
                   {timeSlots.map((time, j) => (
-                    <div key={j} className="py-2 font-semibold">
+                    <div key={j} className='py-2 font-semibold'>
                       {time}
                     </div>
                   ))}

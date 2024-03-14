@@ -1,21 +1,21 @@
-import Api from "@/API/Api";
-import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
+import Api from '@/API/Api';
+import NextAuth from 'next-auth/next';
+import CredentialsProvider from 'next-auth/providers/credentials';
 export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
-        email: { label: "email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials: any, req: any) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
         const { email, password } = credentials;
-        const res = await Api.post("/auth/signin", { email, password });
+        const res = await Api.post('/auth/signin', { email, password });
         if (res.status === 401) {
           return null;
         }
@@ -37,6 +37,6 @@ export default NextAuth({
     },
   },
   pages: {
-    signIn: "/auth/signin",
+    signIn: '/auth/signin',
   },
 });
