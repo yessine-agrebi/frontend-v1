@@ -17,9 +17,9 @@ export type Tutor = {
 };
 
 export enum Role {
-    TUTOR = "TUTOR",
-    STUDENT = "STUDENT",
-    ADMIN = "ADMIN",
+  TUTOR = 'TUTOR',
+  STUDENT = 'STUDENT',
+  ADMIN = 'ADMIN',
 }
 
 export type Availability = {
