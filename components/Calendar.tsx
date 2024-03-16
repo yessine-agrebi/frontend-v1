@@ -107,7 +107,9 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
                   className='flex flex-col items-center justify-center gap-1 overflow-hidden'
                 >
                   {timeSlots.map((timeSlot, index) => (
-                    <Badge key={index} className=''>{timeSlot}</Badge>
+                    <Badge key={index} className=''>
+                      {timeSlot}
+                    </Badge>
                   ))}
                 </div>
               )
