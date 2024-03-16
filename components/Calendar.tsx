@@ -129,9 +129,12 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
             )}
           </div>
         ))}
-        
+        <div className='col-span-4 grid grid-cols-subgrid'>
+          <Button className='col-start-4' onClick={handleDisplayCount}>
+            More
+          </Button>
+        </div>
       </div>
-      
     </div>
   );
 };
