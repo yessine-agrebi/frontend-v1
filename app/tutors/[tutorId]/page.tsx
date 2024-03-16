@@ -36,7 +36,7 @@ const Tutor = () => {
           </h1>
           <p>{data.description}</p>
           <p>{data.speciality?.name}</p>
-          {/* <Calendar availabilities={data.availabilities} /> */}
+          <Calendar availabilities={data.availabilities} />
         </div>
       )}
     </div>
