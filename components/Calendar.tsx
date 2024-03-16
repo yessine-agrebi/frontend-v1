@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Availability } from '@/types';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 
 const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
-  console.log(availabilities);
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const goToPreviousWeek = () => {
+    //do not go back before the current date
+    if (currentDate <= new Date()) return;
     setCurrentDate(new Date(currentDate.setDate(currentDate.getDate() - 7)));
   };
 
@@ -15,50 +18,70 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
     setCurrentDate(new Date(currentDate.setDate(currentDate.getDate() + 7)));
   };
 
-  // Filter availabilities for the current week
-  const firstDayOfWeek = new Date(currentDate);
-  const lastDayOfWeek = new Date(
-    currentDate.setDate(currentDate.getDate() + 6)
-  );
-  const availabilitiesThisWeek = availabilities.filter((availability) => {
-    const availabilityDate = new Date(availability.startDate);
-    return (
-      availabilityDate >= firstDayOfWeek && availabilityDate <= lastDayOfWeek
-    );
-  });
-
   // Generate an array of 7 dates representing the days of the current week
   const daysOfMonth = Array.from({ length: 7 }, (_, i) => {
-    const day = new Date(firstDayOfWeek);
+    const day = new Date(currentDate);
     day.setDate(day.getDate() + i);
     return day;
   });
 
-  // Function to generate time slots between start and end times
+  //convert '09:00 am' to '09:00'
+  const convertTime = (time: string) => {
+    const t = time.toLowerCase();
+    const newTime = t.replace(' am', '').replace(' pm', '');
+    const [hour, minute] = newTime.split(':');
+    return `${hour}:${minute}`;
+  };
+
   const generateTimeSlots = (startTime: string, endTime: string) => {
-    const start = new Date(`01/01/2023 ${startTime}`);
-    const end = new Date(`01/01/2023 ${endTime}`);
+    const start = convertTime(startTime);
+    const end = convertTime(endTime);
+    const startOfDay = new Date(
+      0,
+      0,
+      0,
+      parseInt(start.split(':')[0]),
+      parseInt(start.split(':')[1])
+    );
+    const endOfDay = new Date(
+      0,
+      0,
+      0,
+      parseInt(end.split(':')[0]),
+      parseInt(end.split(':')[1])
+    );
     const timeSlots = [];
     let currentTime = start;
-
-    while (currentTime <= end) {
-      timeSlots.push(
-        currentTime.toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        })
-      );
-      currentTime.setMinutes(currentTime.getMinutes() + 30);
+    while (startOfDay.getTime() <= endOfDay.getTime()) {
+      const [hour, minute] = currentTime.split(':');
+      const formattedHour = hour.padStart(2, '0'); // Ensure hours have leading zero
+      const formattedMinute = minute.padStart(2, '0'); // Ensure minutes have leading zero
+      timeSlots.push(`${formattedHour}:${formattedMinute}`);
+      const date = new Date(0, 0, 0, parseInt(hour), parseInt(minute));
+      date.setMinutes(date.getMinutes() + 30);
+      currentTime = `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+      startOfDay.setHours(date.getHours());
+      startOfDay.setMinutes(date.getMinutes());
     }
+    return timeSlots;
+  };
 
+  const generateTimeSlotsForDay = (day: string) => {
+    const dayAvailabilities = availabilities.filter(
+      (availability) =>
+        availability.day.slice(0, 3).toLowerCase() === day.toLowerCase()
+    );
+    const timeSlots = dayAvailabilities.map((availability) =>
+      generateTimeSlots(availability.startTime, availability.endTime)
+    );
     return timeSlots;
   };
 
   return (
     <div className='container mx-auto'>
       <div className='mb-4 flex justify-between'>
-        <button onClick={goToPreviousWeek}>Previous</button>
-        <button onClick={goToNextWeek}>Next</button>
+        <Button onClick={goToPreviousWeek}>Previous</Button>
+        <Button onClick={goToNextWeek}>Next</Button>
       </div>
       <div className='grid grid-cols-7 border-b-2 border-yellow-300'>
         {daysOfWeek.map((day, index) => (
@@ -67,26 +90,28 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
           </div>
         ))}
       </div>
-      <div className='grid grid-cols-7 gap-2'>
+      <div className='grid grid-flow-row grid-cols-7 gap-2'>
         {daysOfMonth.map((day, index) => (
           <div key={index} className='p-2 text-center'>
             <div className='text-gray-400'>{day.getDate()}</div>
-            {availabilitiesThisWeek.map((availability, i) => {
-              const timeSlots = generateTimeSlots(
-                availability.startTime,
-                availability.endTime
-              );
-              console.log(timeSlots);
-              return (
-                <React.Fragment key={i}>
-                  {timeSlots.map((time, j) => (
-                    <div key={j} className='py-2 font-semibold'>
-                      {time}
-                    </div>
+          </div>
+        ))}
+      </div>
+      <div className='grid grid-flow-row grid-cols-7 gap-2'>
+        {daysOfMonth.map((day, index) => (
+          <div key={index}>
+            {generateTimeSlotsForDay(daysOfWeek[index]).map(
+              (timeSlots, index) => (
+                <div
+                  key={index}
+                  className='flex flex-col items-center justify-center gap-1 overflow-hidden'
+                >
+                  {timeSlots.map((timeSlot, index) => (
+                    <Badge key={index} className=''>{timeSlot}</Badge>
                   ))}
-                </React.Fragment>
-              );
-            })}
+                </div>
+              )
+            )}
           </div>
         ))}
       </div>
