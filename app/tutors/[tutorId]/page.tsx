@@ -31,11 +31,11 @@ const Tutor = () => {
       {isError && <p>Error...</p>}
       {data && (
         <div>
-          <h1>
+          {/* <h1>
             {data.firstName} {data.lastName}
           </h1>
           <p>{data.description}</p>
-          <p>{data.speciality?.name}</p>
+          <p>{data.speciality?.name}</p> */}
           <Calendar availabilities={data.availabilities} />
         </div>
       )}

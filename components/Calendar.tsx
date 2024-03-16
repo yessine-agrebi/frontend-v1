@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Availability } from '@/types';
 import { Badge } from './ui/badge';
+import { FcNext, FcPrevious } from 'react-icons/fc';
 import { Button } from './ui/button';
 
 const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
   const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const [displayCount, setDisplayCount] = useState(6);
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -77,15 +79,23 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
     return timeSlots;
   };
 
+  const handleDisplayCount = () => {
+    setDisplayCount(displayCount + 6);
+  };
+
   return (
-    <div className='container mx-auto'>
-      <div className='mb-4 flex justify-between'>
-        <Button onClick={goToPreviousWeek}>Previous</Button>
-        <Button onClick={goToNextWeek}>Next</Button>
+    <div className='container mx-auto mt-4'>
+      <div className='flex items-center justify-start gap-2'>
+        <button onClick={goToPreviousWeek}>
+          <FcPrevious size={25} />
+        </button>
+        <button onClick={goToNextWeek}>
+          <FcNext size={25} />
+        </button>
       </div>
-      <div className='grid grid-cols-7 border-b-2 border-yellow-300'>
+      <div className='grid grid-cols-7 border-b-2 border-blue-500'>
         {daysOfWeek.map((day, index) => (
-          <div key={index} className='p-2 text-center text-gray-400'>
+          <div key={index} className='p-2 text-center '>
             {day}
           </div>
         ))}
@@ -106,17 +116,22 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
                   key={index}
                   className='flex flex-col items-center justify-center gap-1 overflow-hidden'
                 >
-                  {timeSlots.map((timeSlot, index) => (
-                    <Badge key={index} className=''>
-                      {timeSlot}
-                    </Badge>
-                  ))}
+                  {timeSlots.map(
+                    (timeSlot, index) =>
+                      index <= displayCount && (
+                        <Badge key={index} className=''>
+                          {timeSlot}
+                        </Badge>
+                      )
+                  )}
                 </div>
               )
             )}
           </div>
         ))}
+        
       </div>
+      
     </div>
   );
 };
