@@ -9,7 +9,7 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const goToPreviousWeek = () => {
-    //do not go back before the current date
+    //to ensure not going back before the current date
     if (currentDate <= new Date()) return;
     setCurrentDate(new Date(currentDate.setDate(currentDate.getDate() - 7)));
   };
@@ -32,7 +32,7 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
     const [hour, minute] = newTime.split(':');
     return `${hour}:${minute}`;
   };
-
+  //generate time slots between start and end time
   const generateTimeSlots = (startTime: string, endTime: string) => {
     const start = convertTime(startTime);
     const end = convertTime(endTime);
@@ -65,7 +65,7 @@ const Calendar = ({ availabilities }: { availabilities: Availability[] }) => {
     }
     return timeSlots;
   };
-
+  //generate time slots for a specific day
   const generateTimeSlotsForDay = (day: string) => {
     const dayAvailabilities = availabilities.filter(
       (availability) =>
