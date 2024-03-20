@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import isAuth from '@/components/isAuth';
 import {
   Card,
   CardContent,
@@ -114,4 +113,4 @@ const Tutors = () => {
   );
 };
 
-export default isAuth(Tutors);
+export default Tutors;
