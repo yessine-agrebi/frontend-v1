@@ -30,12 +30,15 @@ const Tutor = () => {
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error...</p>}
       {data && (
-        <div>
-          {/* <h1>
-            {data.firstName} {data.lastName}
-          </h1>
-          <p>{data.description}</p>
-          <p>{data.speciality?.name}</p> */}
+        <div className='flex flex-col gap-4 w-full'>
+          <div className='w-1/4 flex flex-col justify-start'>
+            <h1>
+              {data.firstName} {data.lastName}
+            </h1>
+            <p>{data.email}</p>
+            <p>{data.description}</p>
+            <p>{data.speciality?.name}</p>
+          </div>
           <Calendar availabilities={data.availabilities} />
         </div>
       )}

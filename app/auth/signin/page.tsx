@@ -34,7 +34,7 @@ const SignIn = () => {
     setLoading(false);
   };
   return (
-    <div className='mt-5 flex items-center justify-center'>
+    <div className='flex justify-center items-center'>
       <Card className='w-full md:w-1/3'>
         <CardHeader className='flex flex-col gap-4'>
           <CardTitle>Sign In</CardTitle>

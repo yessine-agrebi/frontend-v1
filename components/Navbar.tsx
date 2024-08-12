@@ -29,11 +29,12 @@ const Navbar = () => {
             <Link href='/tutors'>Find Tutors</Link>
           </li>
           <li>
-            <Link href='/auth/signup/tutor'>Become a Tutor</Link>
+            <Link href='/meetings'>Meetings</Link>
           </li>
         </ul>
       </div>
       <div className='hidden items-center gap-4 md:flex'>
+        <Link href='/auth/signup/tutor'>Become a Tutor</Link>
         <ModeToggle />
         {session && session.user ? (
           <Button className='' onClick={() => signOut()}>
